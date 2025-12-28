@@ -1,7 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const { db, initializeDatabase } = require('./db/schema.cjs');
-const { seedDatabase } = require('./db/seed.cjs');
+const { seedSimpleData } = require('./db/seed-simple.cjs');
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -14,10 +14,16 @@ app.use(express.json());
 initializeDatabase();
 
 // 检查是否需要填充数据
-const robotCount = db.prepare('SELECT COUNT(*) as count FROM robots').get();
-if (robotCount.count === 0) {
-  console.log('📦 数据库为空，正在填充初始数据...');
-  seedDatabase();
+try {
+  const robotCount = db.prepare('SELECT COUNT(*) as count FROM robots').get();
+  if (robotCount.count === 0) {
+    console.log('📦 数据库为空，正在填充初始数据...');
+    seedSimpleData();
+  } else {
+    console.log(`✅ 数据库已有 ${robotCount.count} 个机器人数据`);
+  }
+} catch (error) {
+  console.log('⏭️  跳过数据填充检查');
 }
 
 // ==================== API 路由 ====================

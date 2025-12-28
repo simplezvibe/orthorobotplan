@@ -5,7 +5,7 @@ const dbPath = path.join(__dirname, 'orthorobot.db');
 const db = new Database(dbPath);
 
 function initializeDatabase() {
-  db.exec(\`
+  db.exec(`
     CREATE TABLE IF NOT EXISTS robots (
       id INTEGER PRIMARY KEY,
       name TEXT NOT NULL,
@@ -41,51 +41,51 @@ function initializeDatabase() {
       training_program TEXT,
       annual_maintenance TEXT
     )
-  \`);
+  `);
 
-  db.exec(\`CREATE TABLE IF NOT EXISTS indications (
+  db.exec(`CREATE TABLE IF NOT EXISTS indications (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       robot_id INTEGER,
       indication TEXT,
       FOREIGN KEY (robot_id) REFERENCES robots(id)
-    )\`);
+    )`);
 
-  db.exec(\`CREATE TABLE IF NOT EXISTS advantages (
+  db.exec(`CREATE TABLE IF NOT EXISTS advantages (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       robot_id INTEGER,
       advantage TEXT,
       FOREIGN KEY (robot_id) REFERENCES robots(id)
-    )\`);
+    )`);
 
-  db.exec(\`CREATE TABLE IF NOT EXISTS limitations (
+  db.exec(`CREATE TABLE IF NOT EXISTS limitations (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       robot_id INTEGER,
       limitation TEXT,
       FOREIGN KEY (robot_id) REFERENCES robots(id)
-    )\`);
+    )`);
 
-  db.exec(\`CREATE TABLE IF NOT EXISTS patient_benefits (
+  db.exec(`CREATE TABLE IF NOT EXISTS patient_benefits (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       robot_id INTEGER,
       benefit TEXT,
       FOREIGN KEY (robot_id) REFERENCES robots(id)
-    )\`);
+    )`);
 
-  db.exec(\`CREATE TABLE IF NOT EXISTS hospitals (
+  db.exec(`CREATE TABLE IF NOT EXISTS hospitals (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       robot_id INTEGER,
       hospital_name TEXT,
       FOREIGN KEY (robot_id) REFERENCES robots(id)
-    )\`);
+    )`);
 
-  db.exec(\`CREATE TABLE IF NOT EXISTS implant_compatibility (
+  db.exec(`CREATE TABLE IF NOT EXISTS implant_compatibility (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       robot_id INTEGER,
       implant TEXT,
       FOREIGN KEY (robot_id) REFERENCES robots(id)
-    )\`);
+    )`);
 
-  db.exec(\`CREATE TABLE IF NOT EXISTS news (
+  db.exec(`CREATE TABLE IF NOT EXISTS news (
       id INTEGER PRIMARY KEY,
       title TEXT NOT NULL,
       date TEXT,
@@ -94,15 +94,15 @@ function initializeDatabase() {
       tag_color TEXT,
       summary TEXT,
       is_hot BOOLEAN DEFAULT 0
-    )\`);
+    )`);
 
-  db.exec(\`CREATE TABLE IF NOT EXISTS faqs (
+  db.exec(`CREATE TABLE IF NOT EXISTS faqs (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       question TEXT NOT NULL,
       answer TEXT NOT NULL
-    )\`);
+    )`);
 
-  db.exec(\`CREATE TABLE IF NOT EXISTS patient_stories (
+  db.exec(`CREATE TABLE IF NOT EXISTS patient_stories (
       id INTEGER PRIMARY KEY,
       name TEXT,
       age INTEGER,
@@ -113,21 +113,21 @@ function initializeDatabase() {
       rating INTEGER,
       comment TEXT,
       date TEXT
-    )\`);
+    )`);
 
-  db.exec(\`CREATE TABLE IF NOT EXISTS surgical_tips (
+  db.exec(`CREATE TABLE IF NOT EXISTS surgical_tips (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       category TEXT NOT NULL,
       tip TEXT NOT NULL
-    )\`);
+    )`);
 
-  db.exec(\`CREATE TABLE IF NOT EXISTS cities (
+  db.exec(`CREATE TABLE IF NOT EXISTS cities (
       id TEXT PRIMARY KEY,
       name TEXT NOT NULL,
       tier INTEGER NOT NULL
-    )\`);
+    )`);
 
-  db.exec(\`CREATE TABLE IF NOT EXISTS anatomy_education (
+  db.exec(`CREATE TABLE IF NOT EXISTS anatomy_education (
       id TEXT PRIMARY KEY,
       name TEXT NOT NULL,
       subtitle TEXT,
@@ -135,24 +135,24 @@ function initializeDatabase() {
       duration TEXT,
       recovery TEXT,
       lifespan TEXT
-    )\`);
+    )`);
 
-  db.exec(\`CREATE TABLE IF NOT EXISTS anatomy_suitable (
+  db.exec(`CREATE TABLE IF NOT EXISTS anatomy_suitable (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       anatomy_id TEXT,
       type TEXT,
       item TEXT,
       FOREIGN KEY (anatomy_id) REFERENCES anatomy_education(id)
-    )\`);
+    )`);
 
-  db.exec(\`CREATE TABLE IF NOT EXISTS anatomy_advantages (
+  db.exec(`CREATE TABLE IF NOT EXISTS anatomy_advantages (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       anatomy_id TEXT,
       advantage TEXT,
       FOREIGN KEY (anatomy_id) REFERENCES anatomy_education(id)
-    )\`);
+    )`);
 
-  db.exec(\`CREATE TABLE IF NOT EXISTS anatomy_steps (
+  db.exec(`CREATE TABLE IF NOT EXISTS anatomy_steps (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       anatomy_id TEXT,
       title TEXT,
@@ -160,16 +160,16 @@ function initializeDatabase() {
       icon TEXT,
       step_order INTEGER,
       FOREIGN KEY (anatomy_id) REFERENCES anatomy_education(id)
-    )\`);
+    )`);
 
-  db.exec(\`CREATE TABLE IF NOT EXISTS pricing_policies (
+  db.exec(`CREATE TABLE IF NOT EXISTS pricing_policies (
       id INTEGER PRIMARY KEY,
       name TEXT NOT NULL,
       description TEXT,
       unit TEXT,
       category TEXT,
       note TEXT
-    )\`);
+    )`);
 
   console.log('Database tables created successfully');
 }

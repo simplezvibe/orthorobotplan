@@ -42,7 +42,7 @@ function seedDatabase() {
   db.exec('DELETE FROM anatomy_steps');
   db.exec('DELETE FROM pricing_policies');
 
-  const insertRobot = db.prepare(\`
+  const insertRobot = db.prepare(`
     INSERT INTO robots (
       id, name, manufacturer, origin, nmpa, technology, accuracy,
       installations, evidence, color, image, recovery_time, pain_level,
@@ -52,7 +52,7 @@ function seedDatabase() {
       navigation_system, haptic_feedback, real_time_tracking,
       software_version, service_network, training_program, annual_maintenance
     ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-  \`);
+  `);
 
   const insertIndication = db.prepare('INSERT INTO indications (robot_id, indication) VALUES (?, ?)');
   const insertAdvantage = db.prepare('INSERT INTO advantages (robot_id, advantage) VALUES (?, ?)');
@@ -83,12 +83,12 @@ function seedDatabase() {
     robot.implantCompatibility?.forEach(imp => insertImplant.run(robot.id, imp));
   });
 
-  console.log(\`Inserted \${robotsData.robots.length} robots\`);
+  console.log(`Inserted \${robotsData.robots.length} robots`);
 
-  const insertNews = db.prepare(\`
+  const insertNews = db.prepare(`
     INSERT INTO news (id, title, date, source, tag, tag_color, summary, is_hot)
     VALUES (?, ?, ?, ?, ?, ?, ?, ?)
-  \`);
+  `);
 
   contentData.news.forEach(item => {
     insertNews.run(
@@ -97,19 +97,19 @@ function seedDatabase() {
     );
   });
 
-  console.log(\`Inserted \${contentData.news.length} news items\`);
+  console.log(`Inserted \${contentData.news.length} news items`);
 
   const insertFaq = db.prepare('INSERT INTO faqs (question, answer) VALUES (?, ?)');
   contentData.faqs.forEach(faq => {
     insertFaq.run(faq.q, faq.a);
   });
 
-  console.log(\`Inserted \${contentData.faqs.length} FAQs\`);
+  console.log(`Inserted \${contentData.faqs.length} FAQs`);
 
-  const insertStory = db.prepare(\`
+  const insertStory = db.prepare(`
     INSERT INTO patient_stories (id, name, age, surgery, robot, hospital, recovery, rating, comment, date)
     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-  \`);
+  `);
 
   contentData.patientStories.forEach(story => {
     insertStory.run(
@@ -118,7 +118,7 @@ function seedDatabase() {
     );
   });
 
-  console.log(\`Inserted \${contentData.patientStories.length} patient stories\`);
+  console.log(`Inserted \${contentData.patientStories.length} patient stories`);
 
   const insertTip = db.prepare('INSERT INTO surgical_tips (category, tip) VALUES (?, ?)');
   contentData.surgicalTips.forEach(tipGroup => {
@@ -134,25 +134,25 @@ function seedDatabase() {
     insertCity.run(city.id, city.name, city.tier);
   });
 
-  console.log(\`Inserted \${contentData.cities.length} cities\`);
+  console.log(`Inserted \${contentData.cities.length} cities`);
 
-  const insertAnatomy = db.prepare(\`
+  const insertAnatomy = db.prepare(`
     INSERT INTO anatomy_education (id, name, subtitle, description, duration, recovery, lifespan)
     VALUES (?, ?, ?, ?, ?, ?, ?)
-  \`);
+  `);
 
-  const insertAnatomySuitable = db.prepare(\`
+  const insertAnatomySuitable = db.prepare(`
     INSERT INTO anatomy_suitable (anatomy_id, type, item) VALUES (?, ?, ?)
-  \`);
+  `);
 
-  const insertAnatomyAdvantage = db.prepare(\`
+  const insertAnatomyAdvantage = db.prepare(`
     INSERT INTO anatomy_advantages (anatomy_id, advantage) VALUES (?, ?)
-  \`);
+  `);
 
-  const insertAnatomyStep = db.prepare(\`
+  const insertAnatomyStep = db.prepare(`
     INSERT INTO anatomy_steps (anatomy_id, title, description, icon, step_order)
     VALUES (?, ?, ?, ?, ?)
-  \`);
+  `);
 
   Object.entries(contentData.anatomyEducation).forEach(([key, value]) => {
     insertAnatomy.run(
@@ -179,10 +179,10 @@ function seedDatabase() {
 
   console.log('Inserted anatomy education data');
 
-  const insertPolicy = db.prepare(\`
+  const insertPolicy = db.prepare(`
     INSERT INTO pricing_policies (id, name, description, unit, category, note)
     VALUES (?, ?, ?, ?, ?, ?)
-  \`);
+  `);
 
   contentData.pricingPolicies.forEach(policy => {
     insertPolicy.run(
@@ -191,7 +191,7 @@ function seedDatabase() {
     );
   });
 
-  console.log(\`Inserted \${contentData.pricingPolicies.length} pricing policies\`);
+  console.log(`Inserted \${contentData.pricingPolicies.length} pricing policies`);
   console.log('Database seeding complete!');
 }
 
